@@ -1,0 +1,50 @@
+digraph DersKaydi {
+    rankdir=TB;
+    node [shape=box, style=filled, fillcolor=lightblue];
+
+    Giris [label="Öğrenci Girişi\n(Öğrenci No & Şifre)"];
+    GirisKontrol [label="Giriş Bilgileri Doğru mu?", shape=diamond, fillcolor=lightyellow];
+    HataGiris [label="Giriş Başarısız\n(Tekrar Deneme)", fillcolor=salmon];
+
+    KayitKontrol [label="Kayıt Haftası mı?", shape=diamond, fillcolor=lightyellow];
+    KayitDegil [label="Kayıt Haftası Değil\nKayıt Yapılamaz", fillcolor=salmon];
+
+    DersListele [label="Alınabilecek Dersleri Listele"];
+    DersSecimi [label="Ders Seçimi Başlat"];
+    DersGirdisi [label="Ders Kodu Gir"];
+    DersKontrol [label="Geçerli ve Uygun Ders mi?", shape=diamond, fillcolor=lightyellow];
+    DersEkle [label="Ders Seçilenlere Eklendi"];
+    DersSecimiBitir [label="'BİTİR' Girildi mi?", shape=diamond, fillcolor=lightyellow];
+    DersSecTekrar [label="Yeni Ders Gir", fillcolor=lightblue];
+    HataliDers [label="Hatalı/Kontenjan Dolu/Ders Zaten Seçildi", fillcolor=salmon];
+
+    DanismanOnay [label="Danışman Onayı Gönderilsin mi?", shape=diamond, fillcolor=lightyellow];
+    Onaylandi [label="Dersler Danışmana Gönderildi", fillcolor=lightgreen];
+    Iptal [label="Kayıt İptal Edildi", fillcolor=salmon];
+
+    // Bağlantılar
+    Giris -> GirisKontrol;
+    GirisKontrol -> HataGiris [label="Hayır"];
+    HataGiris -> Giris;
+
+    GirisKontrol -> KayitKontrol [label="Evet"];
+    KayitKontrol -> KayitDegil [label="Hayır"];
+    KayitKontrol -> DersListele [label="Evet"];
+
+    DersListele -> DersSecimi;
+    DersSecimi -> DersGirdisi;
+    DersGirdisi -> DersSecimiBitir;
+
+    DersSecimiBitir -> DanismanOnay [label="Evet"];
+    DersSecimiBitir -> DersKontrol [label="Hayır"];
+
+    DersKontrol -> HataliDers [label="Hayır"];
+    HataliDers -> DersGirdisi;
+
+    DersKontrol -> DersEkle [label="Evet"];
+    DersEkle -> DersSecTekrar;
+    DersSecTekrar -> DersGirdisi;
+
+    DanismanOnay -> Onaylandi [label="Evet"];
+    DanismanOnay -> Iptal [label="Hayır"];
+}
