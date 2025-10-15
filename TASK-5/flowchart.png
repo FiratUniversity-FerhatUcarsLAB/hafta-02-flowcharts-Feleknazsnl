@@ -1,0 +1,38 @@
+digraph AkilliEvGüvenliği {
+    // Grafik ayarları
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor=lightyellow];
+
+    // Düğümler (kapsamlı bileşenler)
+    Ev [label="Ev Durumu"];
+    HareketSensörü [label="Hareket Sensörü"];
+    KapıPencereSensörü [label="Kapı/Pencere Sensörü"];
+    GüvenlikKamerası [label="Güvenlik Kamerası"];
+    AlarmSistemi [label="Alarm Sistemi"];
+    KullanıcıTelefonu [label="Kullanıcı Telefonu"];
+    GüvenlikServisi [label="Güvenlik Servisi"];
+
+    // Ev durumu ve sensörler arasında bağlantılar
+    Ev -> HareketSensörü [label="Hareket Algılama"];
+    Ev -> KapıPencereSensörü [label="Kapı/Pencere Açılımı"];
+    Ev -> GüvenlikKamerası [label="Kamera Yayını Başlat"];
+    
+    // Sensörlerin ve güvenlik sisteminin bağlantıları
+    HareketSensörü -> AlarmSistemi [label="Hareket Tespit Edildi"];
+    KapıPencereSensörü -> AlarmSistemi [label="Kapı/Pencere Açıldı"];
+    GüvenlikKamerası -> KullanıcıTelefonu [label="Görüntü Gönder"];
+    AlarmSistemi -> GüvenlikServisi [label="Güvenlik Servisine Bildirim"];
+
+    // Alarm sisteminin durumu
+    AlarmSistemi -> KullanıcıTelefonu [label="Alarm Bildirimi"];
+    AlarmSistemi -> GüvenlikServisi [label="Alarm Tetikleme"];
+
+    // Ev durumu kontrolü
+    Ev -> AlarmSistemi [label="Evde Kimse Yok"];
+
+    // Görselleştirme düzeni
+    ranksep=1;
+    node [shape=ellipse, fillcolor=lightblue, style=filled];
+    Ev;
+    AlarmSistemi;
+}
