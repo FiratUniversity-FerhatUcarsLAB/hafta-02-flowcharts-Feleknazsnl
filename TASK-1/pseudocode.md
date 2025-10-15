@@ -1,37 +1,41 @@
-Başla
+BAŞLA
 
-  Kullanıcının kartını okut
-  Eğer kart geçerli değilse
-    "Geçersiz kart" mesajı göster
-    Bitir
+  KARTI_OKUT()
 
-  PIN kodunu gir
-  Eğer PIN yanlışsa
-    "Hatalı PIN" mesajı göster
-    Bitir
+  EĞER kart_geçerli_değilse THEN
+    EKRANA_YAZ("Geçersiz kart.")
+    BİTİR
 
-  Kullanıcının mevcut bakiyesini sorgula
+  PIN = PIN_GİR()
 
-  "Çekmek istediğiniz tutarı girin:" mesajı göster
-  ParaÇekilecekTutar değişkenine değeri al
+  EĞER PIN_YANLIŞ(PIN) THEN
+    EKRANA_YAZ("Hatalı PIN.")
+    BİTİR
 
-  Eğer ParaÇekilecekTutar <= 0 ise
-    "Geçersiz tutar" mesajı göster
-    Bitir
+  BAKİYE = BAKİYE_SORGULA()
+  ATM_PARASI = ATM_BAKİYE_SORGULA()
 
-  Eğer ParaÇekilecekTutar > MevcutBakiye ise
-    "Yetersiz bakiye" mesajı göster
-    Bitir
+  EKRANA_YAZ("Çekmek istediğiniz tutarı giriniz:")
+  TUTAR = TUTAR_GİR()
 
-  Eğer ATM içinde yeterli para yoksa
-    "ATM’de yeterli para bulunmamaktadır" mesajı göster
-    Bitir
+  EĞER TUTAR <= 0 THEN
+    EKRANA_YAZ("Geçersiz tutar.")
+    BİTİR
 
-  MevcutBakiye'den ParaÇekilecekTutar kadar düş
-  ATM’deki paradan ParaÇekilecekTutar kadar düş
-  Nakit olarak ParaÇekilecekTutar'ı ver
+  EĞER TUTAR > BAKİYE THEN
+    EKRANA_YAZ("Yetersiz bakiye.")
+    BİTİR
 
-  "İşleminiz başarıyla tamamlandı" mesajı göster
-  "Kartınızı almayı unutmayın" mesajı göster
+  EĞER TUTAR > ATM_PARASI THEN
+    EKRANA_YAZ("ATM'de yeterli para bulunmamaktadır.")
+    BİTİR
 
-Bitir
+  BAKİYE = BAKİYE - TUTAR
+  ATM_PARASI = ATM_PARASI - TUTAR
+
+  NAKİT_VER(TUTAR)
+
+  EKRANA_YAZ("İşleminiz başarıyla tamamlandı.")
+  EKRANA_YAZ("Kartınızı almayı unutmayınız.")
+
+BİTİR
