@@ -1,0 +1,56 @@
+digraph ATM_Para_Cekme {
+    rankdir=TB;
+    node [shape=box, style=filled, fillcolor="#e0f7fa", fontname="Arial"];
+
+    Start [label="Başla", shape=oval, fillcolor="#b2dfdb"];
+    KartOkut [label="Kartı okut"];
+    KartGecerliMi [label="Kart geçerli mi?", shape=diamond, fillcolor="#fff9c4"];
+    GecersizKart [label="Geçersiz kart\nİşlem sonlandırıldı", shape=box, fillcolor="#ffcdd2"];
+
+    PinGir [label="PIN kodunu gir"];
+    PinDogruMu [label="PIN doğru mu?", shape=diamond, fillcolor="#fff9c4"];
+    HataliPin [label="Hatalı PIN\nİşlem sonlandırıldı", shape=box, fillcolor="#ffcdd2"];
+
+    BakiyeSorgu [label="Mevcut bakiyeyi sorgula"];
+    TutarGir [label="Çekilecek tutarı gir"];
+    TutarGecerliMi [label="Tutar geçerli mi?", shape=diamond, fillcolor="#fff9c4"];
+    GecersizTutar [label="Geçersiz tutar\nİşlem sonlandırıldı", shape=box, fillcolor="#ffcdd2"];
+
+    YeterliBakiye [label="Yeterli bakiye var mı?", shape=diamond, fillcolor="#fff9c4"];
+    YetersizBakiye [label="Yetersiz bakiye\nİşlem sonlandırıldı", shape=box, fillcolor="#ffcdd2"];
+
+    ATMParasiYeterliMi [label="ATM'de yeterli para var mı?", shape=diamond, fillcolor="#fff9c4"];
+    ATMYetersiz [label="ATM'de yeterli para yok\nİşlem sonlandırıldı", shape=box, fillcolor="#ffcdd2"];
+
+    ParaVer [label="Nakit ver"];
+    BakiyeDusur [label="Bakiyeyi güncelle\nATM parası azalt"];
+    IslemBasarili [label="İşlem tamamlandı\nKartınızı almayı unutmayın", fillcolor="#c8e6c9"];
+    End [label="Bitir", shape=oval, fillcolor="#b2dfdb"];
+
+    // Bağlantılar
+    Start -> KartOkut;
+    KartOkut -> KartGecerliMi;
+    KartGecerliMi -> GecersizKart [label="Hayır"];
+    KartGecerliMi -> PinGir [label="Evet"];
+    PinGir -> PinDogruMu;
+    PinDogruMu -> HataliPin [label="Hayır"];
+    PinDogruMu -> BakiyeSorgu [label="Evet"];
+    BakiyeSorgu -> TutarGir;
+    TutarGir -> TutarGecerliMi;
+    TutarGecerliMi -> GecersizTutar [label="Hayır"];
+    TutarGecerliMi -> YeterliBakiye [label="Evet"];
+    YeterliBakiye -> YetersizBakiye [label="Hayır"];
+    YeterliBakiye -> ATMParasiYeterliMi [label="Evet"];
+    ATMParasiYeterliMi -> ATMYetersiz [label="Hayır"];
+    ATMParasiYeterliMi -> BakiyeDusur [label="Evet"];
+    BakiyeDusur -> ParaVer;
+    ParaVer -> IslemBasarili;
+    IslemBasarili -> End;
+
+    // Sonlandırmalar
+    GecersizKart -> End;
+    HataliPin -> End;
+    GecersizTutar -> End;
+    YetersizBakiye -> End;
+    ATMYetersiz -> End;
+}
