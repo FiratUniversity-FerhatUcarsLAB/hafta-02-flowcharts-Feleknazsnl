@@ -1,0 +1,27 @@
+digraph HastaneRandevuSistemi {
+    rankdir=TB;
+    node [shape=box, style=filled, color=lightblue];
+
+    Start [label="Başla", shape=circle, color=green, style=filled];
+    HastaBilgileriAl [label="Hasta Bilgilerini Al"];
+    DoktorSec [label="Doktor Branşı Seç"];
+    RandevuSaatleriGetir [label="Randevu Saatlerini Getir"];
+    SaatVarMi [label="Müsait Saat Var mı?", shape=diamond, color=orange];
+    SaatSec [label="Randevu Saati Seç"];
+    RandevuKaydet [label="Randevuyu Kaydet"];
+    BasariliMi [label="Randevu Kaydı Başarılı mı?", shape=diamond, color=orange];
+    BasariliMesaj [label="Randevunuz oluşturuldu!\nİyi günler!", shape=oval, color=lightgreen];
+    HataMesaji [label="Randevu alınamadı / Hata oluştu.", shape=oval, color=red];
+    Bitir [label="Son", shape=doublecircle, color=black];
+
+    // Akış bağlantıları
+    Start -> HastaBilgileriAl -> DoktorSec -> RandevuSaatleriGetir -> SaatVarMi;
+    
+    SaatVarMi -> SaatSec [label="Evet"];
+    SaatVarMi -> HataMesaji [label="Hayır"] -> Bitir;
+
+    SaatSec -> RandevuKaydet -> BasariliMi;
+    
+    BasariliMi -> BasariliMesaj [label="Evet"] -> Bitir;
+    BasariliMi -> HataMesaji [label="Hayır"] -> Bitir;
+}
