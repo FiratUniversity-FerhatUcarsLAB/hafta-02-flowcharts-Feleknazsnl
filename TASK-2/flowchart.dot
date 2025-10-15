@@ -1,0 +1,37 @@
+digraph AlisverisSepeti {
+    rankdir=TB
+    node [shape=box style=rounded fontname="Arial"]
+
+    Start [label="Başla", shape=ellipse]
+    Menu [label="Ana Menü"]
+    
+    Listele [label="Ürünleri Listele"]
+    Ekle [label="Sepete Ürün Ekle"]
+    Goruntule [label="Sepeti Görüntüle"]
+    Sil [label="Sepetten Ürün Sil"]
+    Odeme [label="Ödeme Yap"]
+    OdemeOnay [label="Ödeme Onayı?"]
+    OdemeBasarili [label="Ödeme Başarılı\nSepet Temizlendi"]
+    Cikis [label="Çıkış", shape=ellipse]
+
+    // Akışlar
+    Start -> Menu
+
+    Menu -> Listele [label="1"]
+    Menu -> Ekle [label="2"]
+    Menu -> Goruntule [label="3"]
+    Menu -> Sil [label="4"]
+    Menu -> Odeme [label="5"]
+    Menu -> Cikis [label="6"]
+
+    Ekle -> Menu
+    Listele -> Menu
+    Goruntule -> Menu
+    Sil -> Menu
+
+    Odeme -> Goruntule
+    Goruntule -> OdemeOnay
+    OdemeOnay -> OdemeBasarili [label="Evet"]
+    OdemeOnay -> Menu [label="Hayır"]
+    OdemeBasarili -> Menu
+}
